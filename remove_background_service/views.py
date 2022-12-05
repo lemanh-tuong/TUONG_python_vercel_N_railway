@@ -1,10 +1,20 @@
-from django.shortcuts import render, HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render
 from rembg import remove
 
 # Create your views here.
-def index(request):
+def Demo(request):
   if request.method == 'POST':
     image = request.FILES['image'].read()
     output = remove(image)
-    return HttpResponse(output, content_type="image/jpeg")
-  return render(request, 'index.html')
+  return render(request, 'demo.html')
+
+def Service(request):
+  if request.method == 'POST' or request.method == 'PUT':
+    try:
+      image = request.FILES['image'].read()
+      output = remove(image)
+      return HttpResponse(output, content_type="image/jpeg")
+    except:
+      return HttpResponseBadRequest("Something went wrong!!!")
+      
