@@ -4,9 +4,6 @@ from rembg import remove
 
 # Create your views here.
 def Demo(request):
-  if request.method == 'POST':
-    image = request.FILES['image'].read()
-    output = remove(image)
   return render(request, 'demo.html')
 
 def Service(request):
